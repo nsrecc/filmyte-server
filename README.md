@@ -1,30 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Filmyte - Server
 
-## Getting Started
+Filmyte is a web application for discovering your movies and TV shows.
 
-First, run the development server:
+The web server for Filmyte serves as a gateway between the Filmyte web application and the APIs that power it.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Setup
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+TO DO
 
-## Learn More
+### Usage
 
-To learn more about Next.js, take a look at the following resources:
+Run the development server: `npm run dev`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open [http://localhost:4000](http://localhost:4000) with your browser to see the Filmyte web server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Testing
 
-## Deploy on Vercel
+TO DO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Built With
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+* JavaScript
+* [React](https://reactjs.org/) - JavaScript library for building user interfaces
+* [Node.js](https://nodejs.org/en/) - JavaScript runtime
+* [GraphQL](https://graphql.org/) - Query language for APIs
+* [Apollo GraphQL](https://www.apollographql.com/) - Data graph platform which includes Apollo Server and Apollo Studio
+* [Apollo Server Micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro) - A [Micro](https://github.com/vercel/micro) integration for the Apollo community GraphQL server 
+* [Next.js](https://nextjs.org/) - React framework for production with hybrid static and server rendering, smart bundling, route pre-fetching, file-system routing, built-in support for CSS Modules and Sass, etc.
+
+## Author
+
+* Noel Recchia ([@nsrecc](https://github.com/nsrecc))
