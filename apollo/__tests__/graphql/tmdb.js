@@ -4,15 +4,30 @@ import { gql } from 'apollo-server-micro';
 export const GET_CONFIGURATION = gql`
   query Configuration {
     configuration {
-      change_keys,
       images {
-        base_url,
-        secure_base_url,
-        still_sizes,
-        profile_sizes,
-        poster_sizes,
-        logo_sizes,
-        backdrop_sizes,
+        base_url
+        secure_base_url
+        backdrop_sizes
+        logo_sizes
+        poster_sizes
+        profile_sizes
+        still_sizes
+      }
+      change_keys
+    }
+  }
+`;
+
+export const GET_GENRES_BY_MEDIA_TYPE = gql`
+  query GenresByMediaType {
+    genresByMediaType {
+      movieGenres {
+        id
+        name
+      }
+      tvGenres {
+        id
+        name
       }
     }
   }

@@ -8,6 +8,8 @@ import { typeDefs } from 'apollo/typeDefs';
 import { resolvers } from 'apollo/resolvers';
 import { TMDbAPI } from 'apollo/datasources/tmdbApi';
 
+const isProduction = process.env.NEXT_PUBLIC_GRAPHQL_PLAYGROUND_ENV === 'production';
+
 // initialize Apollo Server
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -15,7 +17,14 @@ const apolloServer = new ApolloServer({
   dataSources: () => ({
     tmdbAPI: new TMDbAPI(),
   }),
-  playground: process.env.NEXT_PUBLIC_GRAPHQL_PLAYGROUND_ENV !== 'production',
+  ...(!isProduction && {
+    playground: {
+      settings: {
+        'schema.polling.enable': false,
+      },
+    },
+    introspection: !isProduction,
+  }),
 });
 
 /**

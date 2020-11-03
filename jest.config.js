@@ -1,18 +1,18 @@
 /**
  * --- Getting started with Next.js with Jest ---
- * Install Jest with 'npm install --save-dev jest babel-jest'.
- * Next.js with Jest example: https://github.com/vercel/next.js/tree/canary/examples/with-jest.
- * Jest documentation:
- * - https://jestjs.io/docs/en/getting-started
- * - https://jestjs.io/docs/en/configuration
- * Explicitly create .babelrc file with needed "next/babel" preset required for Next.js and
- * "@babel/plugin-transform-react-jsx" plugin for Jest to work correctly with Babel's React JSX
- * transformations.
- * - https://nextjs.org/docs/advanced-features/customizing-babel-config
+ * - Install Jest with 'npm install --save-dev jest babel-jest'
+ * - Next.js with Jest example: https://github.com/vercel/next.js/tree/canary/examples/with-jest
+ * - Jest documentation:
+ * - - https://jestjs.io/docs/en/getting-started
+ * - - https://jestjs.io/docs/en/configuration
+ * - Explicitly create .babelrc file with needed "next/babel" preset required for Next.js and
+ *     "@babel/plugin-transform-react-jsx" plugin for Jest to work correctly with Babel's React JSX
+ *     transformations: https://nextjs.org/docs/advanced-features/customizing-babel-config
  */
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
+    '__tests__/**/*.{js,jsx,ts,tsx}',
     'apollo/**/*.{js,jsx,ts,tsx}',
     'pages/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',

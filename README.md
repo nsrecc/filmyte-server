@@ -12,7 +12,7 @@ TO DO
 
 ### Usage
 
-Run the development server: `npm run dev`
+Run the server for development environment: `npm run dev`
 
 Open [http://localhost:4000](http://localhost:4000) with your browser to see the Filmyte web server.
 
@@ -38,6 +38,8 @@ Coverage results are placed in the `/coverage` folder at the root directory.
     * [Apollo REST Data Source](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-datasource-rest) - Package with a class to fetch data from a REST API and expose it via GraphQL within Apollo Server
     * [apollo-server-micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro) - A [Micro](https://github.com/vercel/micro) integration for the Apollo community GraphQL server 
 * [Next.js](https://nextjs.org/) - React framework for production with hybrid static and server rendering, smart bundling, route pre-fetching, file-system routing, built-in support for CSS Modules and Sass, etc.
+* [Lodash](https://lodash.com/) - Modern JavaScript utility library
+* [qs](https://github.com/ljharb/qs) - Querystring parser and stringifier with nesting support
 * [Jest](https://jestjs.io/en/) - JavaScript Testing Framework
 * [node-mocks-http](https://github.com/howardabrams/node-mocks-http) - Mock 'http' objects for Next.js API route testing
 

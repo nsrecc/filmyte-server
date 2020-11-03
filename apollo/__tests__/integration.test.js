@@ -1,3 +1,12 @@
+import { createTestClient } from 'apollo-server-testing';
+import { createTestServer } from 'apollo/__tests__/utils';
+import { mockConfigurationResponse } from 'apollo/datasources/__tests__/tmdbMocks/configurationMock';
+import {
+  mockMovieGenreListResponse,
+  mockTvGenreListResponse,
+} from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
+import { GET_CONFIGURATION, GET_GENRES_BY_MEDIA_TYPE } from 'apollo/__tests__/graphql/tmdb';
+
 /**
  * --- Apollo Server Integration Tests ---
  *
@@ -6,19 +15,14 @@
  *
  * More information: https://www.apollographql.com/docs/apollo-server/testing/testing/
  */
-import { createTestClient } from 'apollo-server-testing';
-import { createTestServer } from 'apollo/__tests__/utils';
-import { mockConfigurationResponse } from 'apollo/datasources/__tests__/mocks/tmdbMocks';
-import { GET_CONFIGURATION } from 'apollo/__tests__/graphql/tmdb';
-
 describe('apollo server integration tests', () => {
   // after each test, clear the calls and instances of all mocks
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Queries via tmdbAPI', () => {
-    it('should query get configuration', async () => {
+  describe('Query GET_CONFIGURATION', () => {
+    it('should query configuration and return expected result', async () => {
       // create instance of test server which uses existing typeDefs, resolvers, and datasource APIs
       const { server, tmdbAPI } = createTestServer();
       // mock tmdbAPI get function with mock response and give it a name for reference
@@ -27,10 +31,25 @@ describe('apollo server integration tests', () => {
 
       // use the test server to create a query function
       const { query } = createTestClient(server);
-
       // run query against the server and snapshot the output
       const res = await query({ query: GET_CONFIGURATION });
+
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_GENRES_BY_MEDIA_TYPE', () => {
+    it('should query genres by media type and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValueOnce(mockMovieGenreListResponse);
+      tmdbAPI.get.mockReturnValueOnce(mockTvGenreListResponse);
+
+      const { query } = createTestClient(server);
+      const res = await query({ query: GET_GENRES_BY_MEDIA_TYPE });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(2);
       expect(res).toMatchSnapshot();
     });
   });
