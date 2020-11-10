@@ -28,5 +28,9 @@ export const resolvers = {
         tvGenres: get(tvGenreList, 'genres', []),
       };
     },
+
+    movieDetails: async (parent, { movieId }, { dataSources }) => (
+      dataSources.tmdbAPI.getMovieDetails(movieId)
+    ),
   },
 };

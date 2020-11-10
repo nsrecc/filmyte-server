@@ -5,6 +5,7 @@ import {
   mockTvGenreListResponse,
   mockGenreByMediaTypeObj,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
+import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 
 /**
  * --- Apollo Server Resolvers Tests ---
@@ -22,6 +23,7 @@ describe('apollo server resolvers tests', () => {
         getConfiguration: jest.fn().mockName('tmdbAPI.getConfiguration'),
         getMovieGenreList: jest.fn().mockName('tmdbAPI.getMovieGenreList'),
         getTvGenreList: jest.fn().mockName('tmdbAPI.getTvGenreList'),
+        getMovieDetails: jest.fn().mockName('tmdbAPI.getMovieDetails'),
       },
     },
   };
@@ -63,5 +65,21 @@ describe('apollo server resolvers tests', () => {
 
       expect(res).toEqual(mockGenreByMediaTypeObj);
     });
+  });
+
+  describe('query getMovieDetails resolver', () => {
+    it('should call tmdbAPI getMovieDetails with passed movieId and return expected result',
+      async () => {
+        const { getMovieDetails } = mockContext.dataSources.tmdbAPI;
+        getMovieDetails.mockReturnValue(mockMovieDetailsResponse);
+        const { id: movieId } = mockMovieDetailsResponse;
+
+        // call the resolver
+        const res = await resolvers.Query.movieDetails(null, { movieId }, mockContext);
+
+        // make sure the datasource fetch was called properly
+        expect(res).toEqual(mockMovieDetailsResponse);
+        expect(getMovieDetails).toHaveBeenCalledTimes(1);
+      });
   });
 });

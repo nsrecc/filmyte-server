@@ -19,7 +19,7 @@ export class TMDbAPI extends RESTDataSource {
   }
 
   /**
-   * Configuration API: https://developers.themoviedb.org/3/configuration/get-api-configuration
+   * Configuration - Get Configuration API: https://developers.themoviedb.org/3/configuration/get-api-configuration
    *
    * This API is needed to build all image URLs from TMDb.
    *
@@ -37,7 +37,7 @@ export class TMDbAPI extends RESTDataSource {
   }
 
   /**
-   * Genres - Movie Genre List API: https://developers.themoviedb.org/3/genres/get-movie-list
+   * Genres - Get Movie List API: https://developers.themoviedb.org/3/genres/get-movie-list
    */
   async getMovieGenreList() {
     const queryString = qs.stringify({ api_key: this.apiKey });
@@ -45,10 +45,18 @@ export class TMDbAPI extends RESTDataSource {
   }
 
   /**
-   * Genres - TV Genre List API: https://developers.themoviedb.org/3/genres/get-tv-list
+   * Genres - Get TV List API: https://developers.themoviedb.org/3/genres/get-tv-list
    */
   async getTvGenreList() {
     const queryString = qs.stringify({ api_key: this.apiKey });
     return this.get(`/genre/tv/list?${queryString}`);
+  }
+
+  /**
+   * Movies - Get Movie Details API: https://developers.themoviedb.org/3/movies/get-movie-details
+   */
+  async getMovieDetails(movieId) {
+    const queryString = qs.stringify({ api_key: this.apiKey });
+    return this.get(`/movie/${movieId}?${queryString}`);
   }
 }

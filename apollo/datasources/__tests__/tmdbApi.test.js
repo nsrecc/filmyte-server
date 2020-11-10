@@ -5,6 +5,7 @@ import {
   mockMovieGenreListResponse,
   mockTvGenreListResponse,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
+import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 
 /**
  * --- TMDbAPI Datasource Tests ---
@@ -23,7 +24,7 @@ describe('TMDbAPI datasource tests', () => {
   });
 
   describe('tmdbAPI getConfiguration', () => {
-    it('should call GET /configuration with the correct parameters and response', async () => {
+    it('should call GET /configuration with the expected argument and response', async () => {
       // return mock response when mock function is called
       tmdbAPI.get.mockReturnValue(mockConfigurationResponse);
       const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
@@ -39,7 +40,7 @@ describe('TMDbAPI datasource tests', () => {
   });
 
   describe('tmdbAPI getMovieGenreList', () => {
-    it('should call GET /genre/movie/list with the correct parameters', async () => {
+    it('should call GET /genre/movie/list with the expected argument and response', async () => {
       tmdbAPI.get.mockReturnValue(mockMovieGenreListResponse);
       const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
 
@@ -52,7 +53,7 @@ describe('TMDbAPI datasource tests', () => {
   });
 
   describe('tmdbAPI getTvGenreList', () => {
-    it('should call GET /genre/tv/list with the correct parameters', async () => {
+    it('should call GET /genre/tv/list with the expected argument and response', async () => {
       tmdbAPI.get.mockReturnValue(mockTvGenreListResponse);
       const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
 
@@ -61,6 +62,20 @@ describe('TMDbAPI datasource tests', () => {
       expect(res).toEqual(mockTvGenreListResponse);
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(tmdbAPI.get).toHaveBeenCalledWith(`/genre/tv/list?${queryString}`);
+    });
+  });
+
+  describe('tmdbAPI getMovieDetails', () => {
+    it('should call GET /movie/{movie_id} with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockMovieDetailsResponse);
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
+      const { id: movieId } = mockMovieDetailsResponse;
+
+      const res = await tmdbAPI.getMovieDetails(movieId);
+
+      expect(res).toEqual(mockMovieDetailsResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/movie/${movieId}?${queryString}`);
     });
   });
 });

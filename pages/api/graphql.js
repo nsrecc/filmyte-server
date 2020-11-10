@@ -41,5 +41,5 @@ export const config = {
 // create handler for incoming GraphQL requests
 const handler = apolloServer.createHandler({ path: '/api/graphql' });
 
-// export as default the request handler function, which receives 'req' and 'res' parameters
+// export as default the request handler function, which takes arguments for 'req' and 'res'
 export default handler;

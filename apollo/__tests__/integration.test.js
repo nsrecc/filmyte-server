@@ -5,7 +5,12 @@ import {
   mockMovieGenreListResponse,
   mockTvGenreListResponse,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
-import { GET_CONFIGURATION, GET_GENRES_BY_MEDIA_TYPE } from 'apollo/__tests__/graphql/tmdb';
+import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
+import {
+  GET_CONFIGURATION,
+  GET_GENRES_BY_MEDIA_TYPE,
+  GET_MOVIE_DETAILS,
+} from 'apollo/__tests__/graphql/tmdb';
 
 /**
  * --- Apollo Server Integration Tests ---
@@ -50,6 +55,21 @@ describe('apollo server integration tests', () => {
       const res = await query({ query: GET_GENRES_BY_MEDIA_TYPE });
 
       expect(tmdbAPI.get).toHaveBeenCalledTimes(2);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_MOVIE_DETAILS', () => {
+    it('should query configuration and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockMovieDetailsResponse);
+      const { id: movieId } = mockMovieDetailsResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({ query: GET_MOVIE_DETAILS, variables: { movieId } });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(res).toMatchSnapshot();
     });
   });
