@@ -6,10 +6,12 @@ import {
   mockTvGenreListResponse,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
+import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
 import {
   GET_CONFIGURATION,
   GET_GENRES_BY_MEDIA_TYPE,
   GET_MOVIE_DETAILS,
+  GET_TV_DETAILS,
 } from 'apollo/__tests__/graphql/tmdb';
 
 /**
@@ -60,7 +62,7 @@ describe('apollo server integration tests', () => {
   });
 
   describe('Query GET_MOVIE_DETAILS', () => {
-    it('should query configuration and return expected result', async () => {
+    it('should query movie details by id and return expected result', async () => {
       const { server, tmdbAPI } = createTestServer();
       tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
       tmdbAPI.get.mockReturnValue(mockMovieDetailsResponse);
@@ -68,6 +70,21 @@ describe('apollo server integration tests', () => {
 
       const { query } = createTestClient(server);
       const res = await query({ query: GET_MOVIE_DETAILS, variables: { movieId } });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_TV_DETAILS', () => {
+    it('should query tv details by id and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockTvDetailsResponse);
+      const { id: tvId } = mockTvDetailsResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({ query: GET_TV_DETAILS, variables: { tvId } });
 
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(res).toMatchSnapshot();

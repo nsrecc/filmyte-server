@@ -6,6 +6,7 @@ import {
   mockTvGenreListResponse,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
+import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
 
 /**
  * --- TMDbAPI Datasource Tests ---
@@ -76,6 +77,20 @@ describe('TMDbAPI datasource tests', () => {
       expect(res).toEqual(mockMovieDetailsResponse);
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(tmdbAPI.get).toHaveBeenCalledWith(`/movie/${movieId}?${queryString}`);
+    });
+  });
+
+  describe('tmdbAPI getTvDetails', () => {
+    it('should call GET /tv/{tv_id} with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockTvDetailsResponse);
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
+      const { id: tvId } = mockTvDetailsResponse;
+
+      const res = await tmdbAPI.getTvDetails(tvId);
+
+      expect(res).toEqual(mockTvDetailsResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/tv/${tvId}?${queryString}`);
     });
   });
 });

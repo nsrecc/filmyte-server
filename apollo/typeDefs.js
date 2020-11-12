@@ -51,26 +51,26 @@ export const typeDefs = gql`
   # GET /movie/{movie_id} API: https://developers.themoviedb.org/3/movies/get-movie-details
   type MovieDetails {
     adult: Boolean
-    backdrop_path: String
+    backdrop_path: String # or null
     belongs_to_collection: String # null or object
     budget: Int
     genres: [Genre]
-    homepage: String
+    homepage: String # or null
     id: Int!
-    imdb_id: String
+    imdb_id: String # or null
     original_language: String
     original_title: String
-    overview: String
+    overview: String # or null
     popularity: Float
-    poster_path: String
+    poster_path: String # or null
     production_countries: [ProductionCountry]
     production_companies: [ProductionCompany]
     release_date: String
     revenue: Int
-    runtime: Int
+    runtime: Int # or null
     spoken_languages: [SpokenLanguage]
     status: String
-    tagline: String
+    tagline: String # or null
     title: String
     video: Boolean
     vote_average: Float
@@ -84,7 +84,7 @@ export const typeDefs = gql`
 
   type ProductionCompany {
     id: Int!
-    logo_path: String
+    logo_path: String # or null
     name: String
     origin_country: String
   }
@@ -94,10 +94,83 @@ export const typeDefs = gql`
     name: String
   }
 
+  # TV - Get Details
+  # GET /tv/{tv_id} API: https://developers.themoviedb.org/3/tv/get-tv-details
+  type TvDetails {
+    backdrop_path: String # or null
+    created_by: [CreatedBy]
+    episode_run_time: [Int]
+    first_air_date: String
+    genres: [Genre]
+    homepage: String
+    id: Int
+    in_production: Boolean
+    languages: [String]
+    last_air_date: String
+    last_episode_to_air: EpisodeToAir
+    name: String
+    next_episode_to_air: EpisodeToAir
+    networks: [Network]
+    number_of_episodes: Int
+    number_of_seasons: Int
+    origin_country: [String]
+    original_language: String
+    original_name: String
+    overview: String
+    popularity: Float
+    poster_path: String
+    production_companies: [ProductionCompany]
+    seasons: [Season]
+    status: String
+    type: String
+    vote_average: Float
+    vote_count: Int
+  }
+
+  type CreatedBy {
+    id: Int!
+    credit_id: String
+    name: String
+    gender: Int
+    profile_path: String
+  }
+
+  type EpisodeToAir {
+    air_date: String
+    episode_number: Int
+    id: Int!
+    name: String
+    overview: String
+    production_code: String
+    season_number: Int
+    show_id: Int
+    still_path: String
+    vote_average: Float
+    vote_count: Int
+  }
+
+  type Network {
+    name: String
+    id: Int!
+    logo_path: String
+    origin_country: String
+  }
+
+  type Season {
+    air_date: String
+    episode_count: Int
+    id: Int!
+    name: String
+    overview: String
+    poster_path: String
+    season_number: Int
+  }
+
   # --- Queries ---
   type Query {
     configuration: Configuration
     genresByMediaType: GenresByMediaType
     movieDetails(movieId: Int!): MovieDetails
+    tvDetails(tvId: Int!): TvDetails
   }
 `;
