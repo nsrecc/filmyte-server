@@ -7,6 +7,7 @@ import {
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
+import { mockPersonDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/personDetailsMock';
 
 /**
  * --- Apollo Server Resolvers Tests ---
@@ -26,6 +27,7 @@ describe('apollo server resolvers tests', () => {
         getTvGenreList: jest.fn().mockName('tmdbAPI.getTvGenreList'),
         getMovieDetails: jest.fn().mockName('tmdbAPI.getMovieDetails'),
         getTvDetails: jest.fn().mockName('tmdbAPI.getTvDetails'),
+        getPersonDetails: jest.fn().mockName('tmdbAPI.getPersonDetails'),
       },
     },
   };
@@ -94,5 +96,19 @@ describe('apollo server resolvers tests', () => {
       expect(res).toEqual(mockTvDetailsResponse);
       expect(getTvDetails).toHaveBeenCalledTimes(1);
     });
+  });
+
+  describe('query getPersonDetails resolver', () => {
+    it('should call tmdbAPI getPersonDetails with passed personId and return expected result',
+      async () => {
+        const { getPersonDetails } = mockContext.dataSources.tmdbAPI;
+        getPersonDetails.mockReturnValue(mockPersonDetailsResponse);
+        const { id: personId } = mockPersonDetailsResponse;
+
+        const res = await resolvers.Query.personDetails(null, { personId }, mockContext);
+
+        expect(res).toEqual(mockPersonDetailsResponse);
+        expect(getPersonDetails).toHaveBeenCalledTimes(1);
+      });
   });
 });

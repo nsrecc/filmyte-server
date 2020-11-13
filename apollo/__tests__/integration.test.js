@@ -7,11 +7,13 @@ import {
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
+import { mockPersonDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/personDetailsMock';
 import {
   GET_CONFIGURATION,
   GET_GENRES_BY_MEDIA_TYPE,
   GET_MOVIE_DETAILS,
   GET_TV_DETAILS,
+  GET_PERSON_DETAILS,
 } from 'apollo/__tests__/graphql/tmdb';
 
 /**
@@ -85,6 +87,21 @@ describe('apollo server integration tests', () => {
 
       const { query } = createTestClient(server);
       const res = await query({ query: GET_TV_DETAILS, variables: { tvId } });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_PERSON_DETAILS', () => {
+    it('should query person details by id and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockPersonDetailsResponse);
+      const { id: personId } = mockPersonDetailsResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({ query: GET_PERSON_DETAILS, variables: { personId } });
 
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(res).toMatchSnapshot();

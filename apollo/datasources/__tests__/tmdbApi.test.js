@@ -7,6 +7,7 @@ import {
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
+import { mockPersonDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/personDetailsMock';
 
 /**
  * --- TMDbAPI Datasource Tests ---
@@ -91,6 +92,20 @@ describe('TMDbAPI datasource tests', () => {
       expect(res).toEqual(mockTvDetailsResponse);
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(tmdbAPI.get).toHaveBeenCalledWith(`/tv/${tvId}?${queryString}`);
+    });
+  });
+
+  describe('tmdbAPI getPersonDetails', () => {
+    it('should call GET /person/{person_id} with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockPersonDetailsResponse);
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey });
+      const { id: personId } = mockPersonDetailsResponse;
+
+      const res = await tmdbAPI.getPersonDetails(personId);
+
+      expect(res).toEqual(mockPersonDetailsResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/person/${personId}?${queryString}`);
     });
   });
 });

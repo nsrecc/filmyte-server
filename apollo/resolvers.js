@@ -36,5 +36,9 @@ export const resolvers = {
     tvDetails: async (parent, { tvId }, { dataSources }) => (
       dataSources.tmdbAPI.getTvDetails(tvId)
     ),
+
+    personDetails: async (parent, { personId }, { dataSources }) => (
+      dataSources.tmdbAPI.getPersonDetails(personId)
+    ),
   },
 };

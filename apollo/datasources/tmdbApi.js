@@ -67,4 +67,12 @@ export class TMDbAPI extends RESTDataSource {
     const queryString = qs.stringify({ api_key: this.apiKey });
     return this.get(`/tv/${tvId}?${queryString}`);
   }
+
+  /**
+   * People - Get Person Details API: https://developers.themoviedb.org/3/people/get-person-details
+   */
+  async getPersonDetails(personId) {
+    const queryString = qs.stringify({ api_key: this.apiKey });
+    return this.get(`/person/${personId}?${queryString}`);
+  }
 }

@@ -84,7 +84,7 @@ export const typeDefs = gql`
 
   type ProductionCompany {
     id: Int!
-    logo_path: String # or null
+    logo_path: String # null or string
     name: String
     origin_country: String
   }
@@ -166,11 +166,31 @@ export const typeDefs = gql`
     season_number: Int
   }
 
+  # People - Get Details
+  # GET /person/{person_id} API: https://developers.themoviedb.org/3/people/get-person-details
+  type PersonDetails {
+    adult: Boolean
+    also_known_as: [String]
+    biography: String
+    birthday: String # or null
+    deathday: String # null or string
+    gender: Int
+    homepage: String # null or string
+    id: Int!
+    imdb_id: String
+    known_for_department: String
+    name: String
+    place_of_birth: String # or null
+    popularity: Float
+    profile_path: String # or null
+  }
+
   # --- Queries ---
   type Query {
     configuration: Configuration
     genresByMediaType: GenresByMediaType
     movieDetails(movieId: Int!): MovieDetails
     tvDetails(tvId: Int!): TvDetails
+    personDetails(personId: Int!): PersonDetails
   }
 `;
