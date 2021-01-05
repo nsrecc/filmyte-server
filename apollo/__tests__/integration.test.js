@@ -8,12 +8,18 @@ import {
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
 import { mockPersonDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/personDetailsMock';
+import { mockSearchMoviesResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchMoviesMock';
+import { mockSearchTvShowsResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchTvShowsMock';
+import { mockSearchPeopleResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchPeopleMock';
 import {
   GET_CONFIGURATION,
   GET_GENRES_BY_MEDIA_TYPE,
   GET_MOVIE_DETAILS,
   GET_TV_DETAILS,
   GET_PERSON_DETAILS,
+  GET_MOVIES_SEARCH,
+  GET_TV_SHOWS_SEARCH,
+  GET_PEOPLE_SEARCH,
 } from 'apollo/__tests__/graphql/tmdb';
 
 /**
@@ -102,6 +108,60 @@ describe('apollo server integration tests', () => {
 
       const { query } = createTestClient(server);
       const res = await query({ query: GET_PERSON_DETAILS, variables: { personId } });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_MOVIES_SEARCH', () => {
+    it('should query movies search by query, page and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockSearchMoviesResponse);
+      const { query: searchQuery = 'fox', page } = mockSearchMoviesResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({
+        query: GET_MOVIES_SEARCH,
+        variables: { query: searchQuery, page },
+      });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_TV_SHOWS_SEARCH', () => {
+    it('should query tv shows search by query, page and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockSearchTvShowsResponse);
+      const { query: searchQuery = 'fox', page } = mockSearchTvShowsResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({
+        query: GET_TV_SHOWS_SEARCH,
+        variables: { query: searchQuery, page },
+      });
+
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(res).toMatchSnapshot();
+    });
+  });
+
+  describe('Query GET_PEOPLE_SEARCH', () => {
+    it('should query people search by query, page and return expected result', async () => {
+      const { server, tmdbAPI } = createTestServer();
+      tmdbAPI.get = jest.fn().mockName('tmdbAPI.get');
+      tmdbAPI.get.mockReturnValue(mockSearchPeopleResponse);
+      const { query: searchQuery = 'fox', page } = mockSearchPeopleResponse;
+
+      const { query } = createTestClient(server);
+      const res = await query({
+        query: GET_PEOPLE_SEARCH,
+        variables: { query: searchQuery, page },
+      });
 
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(res).toMatchSnapshot();

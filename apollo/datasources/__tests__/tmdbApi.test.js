@@ -8,6 +8,9 @@ import {
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
 import { mockPersonDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/personDetailsMock';
+import { mockSearchMoviesResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchMoviesMock';
+import { mockSearchTvShowsResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchTvShowsMock';
+import { mockSearchPeopleResponse } from 'apollo/datasources/__tests__/tmdbMocks/searchPeopleMock';
 
 /**
  * --- TMDbAPI Datasource Tests ---
@@ -107,5 +110,89 @@ describe('TMDbAPI datasource tests', () => {
       expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
       expect(tmdbAPI.get).toHaveBeenCalledWith(`/person/${personId}?${queryString}`);
     });
+  });
+
+  describe('tmdbAPI searchMovies', () => {
+    it('should call GET /search/movie with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockSearchMoviesResponse);
+      const query = 'fox';
+      const page = 1;
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page });
+
+      const res = await tmdbAPI.searchMovies(query, page);
+
+      expect(res).toEqual(mockSearchMoviesResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/movie?${queryString}`);
+    });
+
+    it('should call GET /search/movie with no page argument for default page 1 response case',
+      async () => {
+        tmdbAPI.get.mockReturnValue(mockSearchMoviesResponse);
+        const query = 'fox';
+        const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page: 1 });
+
+        const res = await tmdbAPI.searchMovies(query);
+
+        expect(res).toEqual(mockSearchMoviesResponse);
+        expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+        expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/movie?${queryString}`);
+      });
+  });
+
+  describe('tmdbAPI searchTvShows', () => {
+    it('should call GET /search/tv with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockSearchTvShowsResponse);
+      const query = 'fox';
+      const page = 1;
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page });
+
+      const res = await tmdbAPI.searchTvShows(query, page);
+
+      expect(res).toEqual(mockSearchTvShowsResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/tv?${queryString}`);
+    });
+
+    it('should call GET /search/tv with no page argument for default page 1 response case',
+      async () => {
+        tmdbAPI.get.mockReturnValue(mockSearchTvShowsResponse);
+        const query = 'fox';
+        const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page: 1 });
+
+        const res = await tmdbAPI.searchTvShows(query);
+
+        expect(res).toEqual(mockSearchTvShowsResponse);
+        expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+        expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/tv?${queryString}`);
+      });
+  });
+
+  describe('tmdbAPI searchPeople', () => {
+    it('should call GET /search/person with the expected argument and response', async () => {
+      tmdbAPI.get.mockReturnValue(mockSearchPeopleResponse);
+      const query = 'fox';
+      const page = 1;
+      const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page });
+
+      const res = await tmdbAPI.searchPeople(query, page);
+
+      expect(res).toEqual(mockSearchPeopleResponse);
+      expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+      expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/person?${queryString}`);
+    });
+
+    it('should call GET /search/person with no page argument for default page 1 response case',
+      async () => {
+        tmdbAPI.get.mockReturnValue(mockSearchPeopleResponse);
+        const query = 'fox';
+        const queryString = qs.stringify({ api_key: tmdbAPI.apiKey, query, page: 1 });
+
+        const res = await tmdbAPI.searchPeople(query);
+
+        expect(res).toEqual(mockSearchPeopleResponse);
+        expect(tmdbAPI.get).toHaveBeenCalledTimes(1);
+        expect(tmdbAPI.get).toHaveBeenCalledWith(`/search/person?${queryString}`);
+      });
   });
 });

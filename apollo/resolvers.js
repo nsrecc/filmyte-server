@@ -12,6 +12,14 @@ import { get } from 'lodash';
  * Do not destructure fetchers out of 'dataSources.tmdbAPI' because tmdbAPI is a class.
  */
 export const resolvers = {
+  KnownFor: {
+    __resolveType(obj, context, info) {
+      if (get(obj, 'media_type', '') === 'movie') return 'MovieKnownFor';
+      if (get(obj, 'media_type', '') === 'tv') return 'TvShowKnownFor';
+      return null;
+    },
+  },
+
   Query: {
     configuration: async (parent, args, { dataSources }) => (
       dataSources.tmdbAPI.getConfiguration()
@@ -39,6 +47,18 @@ export const resolvers = {
 
     personDetails: async (parent, { personId }, { dataSources }) => (
       dataSources.tmdbAPI.getPersonDetails(personId)
+    ),
+
+    moviesSearch: async (parent, { query, page }, { dataSources }) => (
+      dataSources.tmdbAPI.searchMovies(query, page)
+    ),
+
+    tvShowsSearch: async (parent, { query, page }, { dataSources }) => (
+      dataSources.tmdbAPI.searchTvShows(query, page)
+    ),
+
+    peopleSearch: async (parent, { query, page }, { dataSources }) => (
+      dataSources.tmdbAPI.searchPeople(query, page)
     ),
   },
 };

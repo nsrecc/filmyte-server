@@ -103,7 +103,7 @@ export const typeDefs = gql`
     first_air_date: String
     genres: [Genre]
     homepage: String
-    id: Int
+    id: Int!
     in_production: Boolean
     languages: [String]
     last_air_date: String
@@ -185,6 +185,113 @@ export const typeDefs = gql`
     profile_path: String # or null
   }
 
+  # Search - Search Movies
+  # GET /search/movie API: https://developers.themoviedb.org/3/search/search-movies
+  type MoviesSearchResults {
+    page: Int
+    results: [MovieSearchResult]
+    total_pages: Int
+    total_results: Int
+  }
+
+  type MovieSearchResult { # Movie List Result Object
+    adult: Boolean
+    backdrop_path: String # or null
+    genre_ids: [Int]
+    id: Int!
+    original_language: String
+    original_title: String
+    overview: String
+    popularity: Float
+    poster_path: String # or null
+    release_date: String
+    title: String
+    video: Boolean
+    vote_average: Float
+    vote_count: Int
+  }
+
+  # Search - Search TV Shows
+  # GET /search/tv API: https://developers.themoviedb.org/3/search/search-tv-shows
+  type TvShowsSearchResults {
+    page: Int
+    results: [TvShowSearchResult]
+    total_pages: Int
+    total_results: Int
+  }
+
+  type TvShowSearchResult { # TV List Result Object
+    backdrop_path: String # or null
+    first_air_date: String
+    genre_ids: [Int]
+    id: Int!
+    name: String
+    origin_country: [String]
+    original_language: String
+    original_name: String
+    overview: String
+    popularity: Float
+    poster_path: String # or null
+    vote_average: Float
+    vote_count: Int
+  }
+
+  # Search - Search People
+  # GET /search/person API: https://developers.themoviedb.org/3/search/search-people
+  type PeopleSearchResults {
+    page: Int
+    results: [PersonSearchResult]
+    total_pages: Int
+    total_results: Int
+  }
+
+  type PersonSearchResult {
+    adult: Boolean
+    gender: Int
+    id: Int!
+    known_for: [KnownFor]
+    known_for_department: String
+    name: String
+    popularity: Float
+    profile_path: String # or null
+  }
+
+  # KnownFor can be either a Movie List Result or TV List Result Object
+  union KnownFor = MovieKnownFor | TvShowKnownFor
+
+  type MovieKnownFor { # Movie List Result Object
+    adult: Boolean
+    backdrop_path: String # or null
+    genre_ids: [Int]
+    id: Int!
+    media_type: String! # required and allowed value: "movie"
+    original_language: String
+    original_title: String
+    overview: String
+    poster_path: String # or null
+    release_date: String
+    title: String
+    video: Boolean
+    vote_average: Float
+    vote_count: Int
+  }
+
+  type TvShowKnownFor { # TV List Result Object
+    backdrop_path: String # or null
+    first_air_date: String
+    genre_ids: [Int]
+    id: Int!
+    media_type: String! # required and allowed value: "tv"
+    name: String
+    origin_country: [String]
+    original_language: String
+    original_name: String
+    overview: String
+    poster_path: String # or null
+    vote_average: Float
+    vote_count: Int
+  }
+
   # --- Queries ---
   type Query {
     configuration: Configuration
@@ -192,5 +299,8 @@ export const typeDefs = gql`
     movieDetails(movieId: Int!): MovieDetails
     tvDetails(tvId: Int!): TvDetails
     personDetails(personId: Int!): PersonDetails
+    moviesSearch(query: String!, page: Int): MoviesSearchResults
+    tvShowsSearch(query: String!, page: Int): TvShowsSearchResults
+    peopleSearch(query: String!, page: Int): PeopleSearchResults
   }
 `;

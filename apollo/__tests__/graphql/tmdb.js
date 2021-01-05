@@ -185,3 +185,107 @@ export const GET_PERSON_DETAILS = gql`
     }
   }
 `;
+
+export const GET_MOVIES_SEARCH = gql`
+  query MoviesSearch($query: String!, $page: Int = 1) {
+    moviesSearch(query: $query, page: $page) {
+      page
+      results {
+        adult
+        backdrop_path
+        genre_ids
+        id
+        original_language
+        original_title
+        overview
+        popularity
+        poster_path
+        release_date
+        title
+        video
+        vote_average
+        vote_count
+      }
+      total_pages
+      total_results
+    }
+  }
+`;
+
+export const GET_TV_SHOWS_SEARCH = gql`
+  query TvShowsSearch($query: String!, $page: Int = 1) {
+    tvShowsSearch(query: $query, page: $page) {
+      page
+      results {
+        backdrop_path
+        first_air_date
+        genre_ids
+        id
+        name
+        origin_country
+        original_language
+        original_name
+        overview
+        popularity
+        poster_path
+        vote_average
+        vote_count
+      }
+      total_pages
+      total_results
+    }
+  }
+`;
+
+export const GET_PEOPLE_SEARCH = gql`
+  query PeopleSearch($query: String!, $page: Int = 1) {
+    peopleSearch(query: $query, page: $page) {
+      page
+      results {
+        adult
+        gender
+        id
+        known_for {
+          # __typename
+          ... on MovieKnownFor {
+            adult
+            backdrop_path
+            genre_ids
+            id
+            media_type
+            original_language
+            original_title
+            overview
+            poster_path
+            release_date
+            title
+            video
+            vote_average
+            vote_count
+          }
+          ... on TvShowKnownFor {
+            backdrop_path
+            first_air_date
+            genre_ids
+            id
+            media_type
+            name
+            origin_country
+            original_language
+            original_name
+            overview
+            poster_path
+            vote_average
+            vote_count
+          }
+        }
+        known_for_department
+        name
+        popularity
+        profile_path
+      }
+      total_pages
+      total_results
+    }
+  }
+`;

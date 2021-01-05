@@ -75,4 +75,28 @@ export class TMDbAPI extends RESTDataSource {
     const queryString = qs.stringify({ api_key: this.apiKey });
     return this.get(`/person/${personId}?${queryString}`);
   }
+
+  /**
+   * Search - Search Movies API: https://developers.themoviedb.org/3/search/search-movies
+   */
+  async searchMovies(query, page = 1) {
+    const queryString = qs.stringify({ api_key: this.apiKey, query, page });
+    return this.get(`/search/movie?${queryString}`);
+  }
+
+  /**
+   * Search - Search TV Shows API: https://developers.themoviedb.org/3/search/search-tv-shows
+   */
+  async searchTvShows(query, page = 1) {
+    const queryString = qs.stringify({ api_key: this.apiKey, query, page });
+    return this.get(`/search/tv?${queryString}`);
+  }
+
+  /**
+   * Search - Search People API: https://developers.themoviedb.org/3/search/search-people
+   */
+  async searchPeople(query, page = 1) {
+    const queryString = qs.stringify({ api_key: this.apiKey, query, page });
+    return this.get(`/search/person?${queryString}`);
+  }
 }
