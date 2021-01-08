@@ -8,11 +8,15 @@ The web server for Filmyte serves as a gateway between [Filmyte web client](http
 
 ### Setup
 
-TO DO
+Clone or download this repository.
+
+Install the required dependencies: `npm install`.
+
+Create a `.env.development.local` file by reusing the `.env.development.local.example` file. Inside your `.env.development.local` file, replace `<api_key>` with your The Movie Database (TMDb) API key.
 
 ### Usage
 
-Run the server for development environment: `npm run dev`
+Run the server for development environment: `npm run dev`.
 
 Open [http://localhost:4000](http://localhost:4000) with your browser to see the Filmyte web server.
 
@@ -20,11 +24,11 @@ In development mode, open [http://localhost:4000/api/graphql](http://localhost:4
 
 ### Testing
 
-Ensure that `.babelrc` file exists at root directory with the required `"next/babel"` preset for Next.js and `"@babel/plugin-transform-react-jsx"` plugin for Jest to work correctly with Babel's React JSX transformations.
+Ensure that `.babelrc` file exists at root directory with the required `"next/babel"` preset for Next.js and defined plugins array for Jest to parse the files.
 
 Configure the `jest.config.js` file to only run test files with certain name scheme `*.test.js`, and to collect coverage from certain files.
 
-Run the Jest test framework: `npm test`
+Run the Jest test framework: `npm test`.
 
 Coverage results are placed in the `/coverage` folder at the root directory.
 

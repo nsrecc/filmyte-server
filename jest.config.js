@@ -27,6 +27,12 @@ module.exports = {
       statements: 80,
     },
   },
+  // moduleNameMapper: {
+  //   '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+  // },
+  modulePaths: [
+    '<rootDir>',
+  ],
   // setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   testMatch: ['<rootDir>/**/?(*.)test.js'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
@@ -38,12 +44,6 @@ module.exports = {
   transformIgnorePatterns: [
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
-  ],
-  // moduleNameMapper: {
-  //   '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
-  // },
-  modulePaths: [
-    '<rootDir>',
   ],
   verbose: true,
 };
