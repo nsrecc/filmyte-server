@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home matches snapshot 1`] = `
+<div
+  className="container"
+>
+  <Head>
+    <title>
+      Filmyte
+    </title>
+    <link
+      href="/favicon.ico"
+      rel="icon"
+    />
+  </Head>
+  <main
+    className="main"
+  >
+    <h1
+      className="title"
+    >
+      Welcome to Filmyte web server!
+    </h1>
+    <h2>
+      Visit the 
+      <Link
+        href="/api/graphql"
+      >
+        Filmyte web server GraphQL playground
+      </Link>
+      .
+    </h2>
+    <h2>
+      Visit the
+       
+      <Link>
+        Filmyte web client
+      </Link>
+      .
+    </h2>
+  </main>
+</div>
+`;

@@ -26,7 +26,7 @@ In development mode, open [http://localhost:4000/api/graphql](http://localhost:4
 
 Ensure that `.babelrc` file exists at root directory with the required `"next/babel"` preset for Next.js and defined plugins array for Jest to parse the files.
 
-Configure the `jest.config.js` file to only run test files with certain name scheme `*.test.js`, and to collect coverage from certain files.
+Configure the `jest.config.js` file to only run test files with certain name scheme `*.test.{js,jsx}`, and to collect coverage from certain files.
 
 Run the Jest test framework: `npm test`.
 
@@ -45,7 +45,11 @@ Coverage results are placed in the `/coverage` folder at the root directory.
 * [Lodash](https://lodash.com/) - Modern JavaScript utility library
 * [qs](https://github.com/ljharb/qs) - Querystring parser and stringifier with nesting support
 * [Jest](https://jestjs.io/en/) - JavaScript Testing Framework
+* [Enzyme](https://enzymejs.github.io/enzyme/) - JavaScript Testing Utility for React
+    * [@wojtekmaj/enzyme-adapter-react-17](https://github.com/wojtekmaj/enzyme-adapter-react-17) - Unofficial Enzyme adapter for React v17.0 until official support is released. For more information, see here: https://github.com/enzymejs/enzyme/issues/2429
+    * [enzyme-to-json](https://github.com/adriantoine/enzyme-to-json) - Converts Enzyme wrappers to a format compatible with Jest snapshot testing
 * [node-mocks-http](https://github.com/howardabrams/node-mocks-http) - Mock 'http' objects for Next.js API route testing
+* [identity-obj-proxy](https://github.com/keyz/identity-obj-proxy) - Identity object using ES6 proxies for mocking Webpack imports like CSS Modules
 
 ## Powered By
 

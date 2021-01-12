@@ -5,9 +5,10 @@
  * - Jest documentation:
  * - - https://jestjs.io/docs/en/getting-started
  * - - https://jestjs.io/docs/en/configuration
- * - Explicitly create .babelrc file with needed "next/babel" preset required for Next.js and
- *     "@babel/plugin-transform-react-jsx" plugin for Jest to work correctly with Babel's React JSX
- *     transformations: https://nextjs.org/docs/advanced-features/customizing-babel-config
+ * - - https://jestjs.io/docs/en/webpack
+ * - Explicitly create .babelrc file with needed "next/babel" preset required for Next.js and and
+ *     defined plugins array for Jest to parse the files:
+ *     https://nextjs.org/docs/advanced-features/customizing-babel-config
  */
 module.exports = {
   collectCoverage: true,
@@ -27,18 +28,20 @@ module.exports = {
       statements: 80,
     },
   },
-  // moduleNameMapper: {
-  //   '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
-  // },
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
+    '\\.(css|sass|scss)$': 'identity-obj-proxy',
+    // '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+  },
   modulePaths: [
     '<rootDir>',
   ],
-  // setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
-  testMatch: ['<rootDir>/**/?(*.)test.js'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  testMatch: ['<rootDir>/**/?(*.)test.{js,jsx,ts,tsx}'],
   testPathIgnorePatterns: ['/node_modules/', '/.next/'],
   transform: {
     '\\.[jt]sx?$': 'babel-jest',
-    // '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
     // '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
   },
   transformIgnorePatterns: [
