@@ -29,13 +29,12 @@ module.exports = {
     },
   },
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
+      '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|sass|scss)$': 'identity-obj-proxy',
     // '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
-  modulePaths: [
-    '<rootDir>',
-  ],
+  modulePaths: ['<rootDir>'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testMatch: ['<rootDir>/**/?(*.)test.{js,jsx,ts,tsx}'],
@@ -44,9 +43,6 @@ module.exports = {
     '\\.[jt]sx?$': 'babel-jest',
     // '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
   },
-  transformIgnorePatterns: [
-    '/node_modules/',
-    '^.+\\.module\\.(css|sass|scss)$',
-  ],
+  transformIgnorePatterns: ['/node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
   verbose: true,
 };

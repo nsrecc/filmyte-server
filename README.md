@@ -36,6 +36,7 @@ Coverage results are placed in the `/coverage` folder at the root directory.
 
 * JavaScript
 * [React](https://reactjs.org/) - JavaScript library for building user interfaces
+    * [prop-types](https://github.com/facebook/prop-types) - Runtime type checking for React props and similar objects
 * [Node.js](https://nodejs.org/en/) - JavaScript runtime
 * [GraphQL](https://graphql.org/) - Query language for APIs
 * [Apollo GraphQL](https://www.apollographql.com/) - Data graph platform which includes Apollo Server

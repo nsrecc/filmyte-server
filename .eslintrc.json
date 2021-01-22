@@ -21,12 +21,15 @@
         "react"
     ],
     "rules": {
+        "arrow-body-style": "off",
         "import/no-unresolved": "off",
         "import/prefer-default-export": "off",
         "no-underscore-dangle": "off",
         "react/jsx-one-expression-per-line": "off",
         "comma-dangle": ["warn", "always-multiline"],
         "no-unused-vars": "warn",
+        "react/forbid-prop-types": "warn",
+        "react/prop-types": "warn",
         "arrow-parens": ["error", "as-needed", { "requireForBlockBody": true }],
         "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }]
     }

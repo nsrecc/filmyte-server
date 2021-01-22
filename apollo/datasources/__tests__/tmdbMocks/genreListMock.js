@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { get } from 'lodash';
+import get from 'lodash/get';
 
 /**
  * Genres - Get Movie List
