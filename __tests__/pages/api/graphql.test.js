@@ -22,6 +22,21 @@ describe('next.js graphql api route', () => {
     expect(res._getStatusCode()).toBe(200);
   });
 
+  it('should respond to OPTIONS request with required CORS origin header and end', async () => {
+    const { req, res } = createMocks({
+      method: 'OPTIONS',
+      url: '/api/graphql',
+    });
+
+    // execute handler
+    await graphqlHandler(req, res);
+
+    const resHeaders = res._getHeaders();
+
+    expect(resHeaders).toHaveProperty('access-control-allow-origin');
+    expect(res._isEndCalled()).toBe(true);
+  });
+
   it('should return 404 not found when receiving request with incorrect url', async () => {
     const { req, res } = createMocks({
       method: 'GET',

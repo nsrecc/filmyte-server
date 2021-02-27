@@ -41,7 +41,8 @@ Coverage results are placed in the `/coverage` folder at the root directory.
 * [GraphQL](https://graphql.org/) - Query language for APIs
 * [Apollo GraphQL](https://www.apollographql.com/) - Data graph platform which includes Apollo Server
     * [Apollo REST Data Source](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-datasource-rest) - Package with a class to fetch data from a REST API and expose it via GraphQL within Apollo Server
-    * [apollo-server-micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro) - A [Micro](https://github.com/vercel/micro) integration for the Apollo community GraphQL server 
+    * [apollo-server-micro](https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro) - A [Micro](https://github.com/vercel/micro) integration for the Apollo community GraphQL server
+        * [micro-cors](https://github.com/possibilities/micro-cors) - CORS middleware for Micro
 * [Next.js](https://nextjs.org/) - React framework for production with hybrid static and server rendering, smart bundling, route pre-fetching, file-system routing, built-in support for CSS Modules and Sass, etc.
 * [Lodash](https://lodash.com/) - Modern JavaScript utility library
 * [qs](https://github.com/ljharb/qs) - Querystring parser and stringifier with nesting support

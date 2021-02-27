@@ -4,6 +4,7 @@
  * More information: https://nextjs.org/docs/api-routes/introduction
  */
 import { ApolloServer } from 'apollo-server-micro';
+import microCors from 'micro-cors';
 import { typeDefs } from 'apollo/typeDefs';
 import { resolvers } from 'apollo/resolvers';
 import { TMDbAPI } from 'apollo/datasources/tmdbApi';
@@ -41,5 +42,12 @@ export const config = {
 // create handler for incoming GraphQL requests
 const handler = apolloServer.createHandler({ path: '/api/graphql' });
 
-// export as default the request handler function, which takes arguments for 'req' and 'res'
-export default handler;
+// use CORS middleware to support cross-origin requests
+const cors = microCors();
+
+/**
+ * Export as default the request handler function, which takes arguments for 'req' and 'res', passed
+ * to CORS middleware to ensure OPTIONS preflight request has response.
+ * For more information: https://github.com/apollographql/apollo-server/tree/main/packages/apollo-server-micro#cors-example
+ */
+export default cors((req, res) => (req.method === 'OPTIONS' ? res.end() : handler(req, res)));
