@@ -30,6 +30,11 @@ export class TMDbAPI extends RESTDataSource {
    * the source code of 'apollo-datasource-rest' and its usage of HTTPCache, as well as this
    * stackoverflow link helped me understand this caching functionality:
    * https://stackoverflow.com/questions/56906712/cant-get-default-apollo-server-cache-to-work/60408100#60408100
+   *
+   * UPDATE: Configuration API as of 02/2021 now includes in response header:
+   * ----- 'cache-control': 'public, max-age=43200' --- 12hr
+   * With this new reponse header max-age, where it was previously max-age=0, it will now be cached
+   * as designed in RESTDataSource and HTTPCache.
    */
   async getConfiguration() {
     const queryString = qs.stringify({ api_key: this.apiKey });

@@ -3,7 +3,7 @@
  * Configuration - Get Configuration
  * GET /configuration API: https://developers.themoviedb.org/3/configuration/get-api-configuration
  *
- * response header 'cache-control': 'max-age=0, private, must-revalidate' --- 0 seconds
+ * response header 'cache-control': 'public, max-age=43200' --- 12 hours
  */
 export const mockConfigurationResponse = {
   images: {

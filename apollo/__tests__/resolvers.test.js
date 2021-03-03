@@ -3,7 +3,7 @@ import { mockConfigurationResponse } from 'apollo/datasources/__tests__/tmdbMock
 import {
   mockMovieGenreListResponse,
   mockTvGenreListResponse,
-  mockGenreByMediaTypeObj,
+  mockGenresByMediaTypeObj,
 } from 'apollo/datasources/__tests__/tmdbMocks/genreListMock';
 import { mockMovieDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/movieDetailsMock';
 import { mockTvDetailsResponse } from 'apollo/datasources/__tests__/tmdbMocks/tvDetailsMock';
@@ -95,7 +95,7 @@ describe('apollo server resolvers tests', () => {
 
       const res = await resolvers.Query.genresByMediaType(null, null, mockContext);
 
-      expect(res).toEqual(mockGenreByMediaTypeObj);
+      expect(res).toEqual(mockGenresByMediaTypeObj);
     });
   });
 
